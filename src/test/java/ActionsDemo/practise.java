@@ -28,46 +28,24 @@ import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.SelfInjec
 public class practise {
 
 	public static void main(String[] args) throws Throwable {
-		System.setProperty("webdriver.chrome.driver", ".\\src\\main\\resources\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver",
+				System.getProperty("user.dir") + "\\src\\main\\resources\\chromedriver_2.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
-		WebDriver driver = new ChromeDriver(options);
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+		ChromeDriver driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		WebElement footer = driver.findElement(By.xpath("//a[text()='REST API']/../.."));
-		List<WebElement> link = footer.findElements(By.tagName("a"));
-//		ArrayList<String> al = new ArrayList<String>();
-//		for (WebElement lv : link) {
-//			al.add(lv.getAttribute("href"));
-//		}
-//		for (String lv : al) {
-//			driver.switchTo().newWindow(WindowType.TAB);
-//			driver.get(lv);
-//		   
-//		}
-		for (WebElement lv : link) {
-			String cli = Keys.chord(Keys.CONTROL, Keys.ENTER);
-			lv.sendKeys(cli);
-
-		}
-
-		Set<String> allWindow = driver.getWindowHandles();
-		for (String lv : allWindow) {
-			driver.switchTo().window(lv);
-			Thread.sleep(7000);
-			System.out.println(driver.getTitle());
-		}
-	}
-
-	public void switchRightWindow(WebDriver driver, String window) {
-		String mainWindow = driver.getWindowHandle();
-		Set<String> allWindow = driver.getWindowHandles();
-		for (String lv : allWindow) {
-			String title = driver.switchTo().window(lv).getTitle();
-			if (title.contains(window)) {
-				driver.switchTo().window(lv);
+		driver.get("https://www.amazon.in/");
+		Actions a = new Actions(driver);
+		a.moveToElement(driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']"))).keyDown(Keys.SHIFT)
+				.sendKeys("sony").keyUp(Keys.SHIFT).doubleClick().build().perform();
+		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions
+				.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='s-suggestion-container']")));
+		List<WebElement> autoSugg = driver.findElements(By.xpath("//div[@class='s-suggestion-container']"));
+		System.out.println(autoSugg.getClass());
+		for (WebElement lv : autoSugg) {
+			if (lv.getText().equalsIgnoreCase("sony headphones")) {
+				lv.click();
 				break;
 			}
 		}

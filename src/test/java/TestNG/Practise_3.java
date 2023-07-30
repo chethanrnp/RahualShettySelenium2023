@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class Practise_3 {
 
-	@Test(dependsOnMethods = { "mobileLoginBike" },groups = {"Smoke"})
+	@Test(dependsOnMethods = { "mobileLoginBike" }, groups = { "Smoke" })
 	public void webLoginBike() {
 		System.out.println("I am WebLogin bike");
 		Assert.assertFalse(true);
@@ -22,7 +22,7 @@ public class Practise_3 {
 		System.out.println("I am API bike");
 	}
 
-	@BeforeSuite
+	@BeforeSuite()
 	public void beforeSuit() {
 		System.out.println("I will begain");
 	}

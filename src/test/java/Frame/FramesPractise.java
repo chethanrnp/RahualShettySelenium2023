@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
@@ -13,7 +14,9 @@ public class FramesPractise {
 	@Test
 	public void framesPractise() {
 		System.setProperty("webdriver.chrome.driver", ".\\src\\main\\resources\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
+		WebDriver driver = new ChromeDriver(options);
 		driver.get("https://jqueryui.com/droppable/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

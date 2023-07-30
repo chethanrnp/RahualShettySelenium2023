@@ -7,7 +7,6 @@ import org.testng.ITestResult;
 public class Listner implements ITestListener {
 
 	public void onTestStart(ITestResult result) {
-		
 
 	}
 
@@ -17,8 +16,8 @@ public class Listner implements ITestListener {
 	}
 
 	public void onTestFailure(ITestResult result) {
-	
-		System.out.println("Test failed"+result.getName());
+		// gets the name of the failed test case
+		System.out.println("Test failed" + result.getName());
 	}
 
 	public void onTestSkipped(ITestResult result) {
